@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1" /> 
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">-->
+    {% block head %}
+
+    {% if DEV %}
+    
+    <script src="{{ url_for('static', filename='jquery/js/jquery-3.5.0.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='Fomantic-UI-2.8.4-offline/dist/semantic.css') }}" />
+    <script src="{{ url_for('static', filename='Fomantic-UI-2.8.4-offline/dist/semantic.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/config-dev.js') }}?version={{VERSION_FILES}}"></script>
+
+
+    <!-- <link rel="stylesheet" href="../static/css/tree.css"> -->
+    
+    
+    {% else %}
+    
+    <script src="{{ url_for('static', filename='jquery/js/jquery-3.5.0.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='Fomantic-UI-2.8.4-offline/dist/semantic.min.css') }}" />
+    <script src="{{ url_for('static', filename='Fomantic-UI-2.8.4-offline/dist/semantic.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/config.js') }}?version={{VERSION_FILES}}"></script>
+    {% endif %}
+
+    <script src="../static/js/cytoscape/cytoscape.min.js"></script>
+    <script src="../static/js/cytoscape/cytoscape-cxtmenu.js"></script>
+    <script src="../static/js/cytoscape/layout-base.js"></script>
+    <script src="../static/js/cytoscape/cose-base.js"></script>
+    <script src="../static/js/cytoscape/cytoscape-cose-bilkent.js"></script>
+    <script src="../static/js/cytoscape/cytoscape-automove.js"></script>
+    <script src="../static/js/cytoscape/popper.js"></script>
+	<script src="../static/js/cytoscape/cytoscape-popper.js"></script>
+	<script src="../static/js/cytoscape/tippy.js"></script>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}?version={{VERSION_FILES}}"></script>
+
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styleRoute3.css') }}?version={{VERSION_FILES}}" />
+    
+    <title> :: APP ::</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='icon/favicon.ico') }}" />
+    <!--[if IE]><link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='icon/favicon.ico') }}" /><![endif]-->
+    {% endblock %}
+    </head>
+    <body>
+
+
+        <div id="overlay">
+        </div>
+
+
+
+        <div id="content">
+            {% block content %} 
+                <header>
+                    <a id="logo" href="http://10.253.255.32:5000/app/"><img src="../static/images/logo.jpg" alt="" ></a>
+
+                    <div class="inputContainer">
+                        <div id="btnNtiers" class="ui input focus">
+                            <input value="760199" id="txtNtier"  type="text" placeholder="Ntier...">
+                        </div>
+
+                        <div id="dropdownPays" class="ui search selection dropdown">
+                            <input name="states" type="hidden" class="noselection">
+                            <i class="dropdown icon"></i>
+                            <input placeholder="Pays..." id="inputPays" class="search" autocomplete="fomantic-search" tabindex="0"><div class="default text">Pays...</div>
+                            <div class="menu" tabindex="-1"></div>
+                        </div>
+
+                        <button id="search" class="ui icon button"> 
+                            <i class="search icon searchIcon"></i>
+                        </button>
+
+                        <div id="dropdownPdep" class="ui disabled multiple search selection dropdown">
+                            <input name="states" type="hidden" class="noselection">
+                            <i class="dropdown icon"></i>
+                            <input placeholder="Pdep..."  class="search" autocomplete="fomantic-search" tabindex="0"><div class="default text">Pdep...</div>
+                            <div id="dropdownMenuPdep" class="menu" tabindex="-1"></div>
+                        </div>
+
+                        <div id="dropdownTiers" class="ui disabled multiple search selection dropdown">
+                            <input name="states" type="hidden" class="noselection">
+                            <i class="dropdown icon"></i>
+                            <input placeholder="Tiers..."  class="search" autocomplete="fomantic-search" tabindex="0"><div class="default text">Tiers...</div>
+                            <div id="dropdownMenuTiers" class="menu" tabindex="-1"></div>
+                        </div>
+                    </div>
+                </header>
+                
+                <div onselectstart="return false" id="zoom">
+                    <i class="plus i">+</i>
+                    <i class="minus i">-</i>
+                </div>
+
+                <div onselectstart="return false" class="iconPosition i">↺</div>
+                <div onselectstart="return false" class="iconEye i"><i class="eye outline icon"></i></div>
+                
+                <div id="cy">
+                </div>
+
+
+                  </div>
+                <div class="containerL">Filtre Hiérarchie
+                    <div  onselectstart="return false"  class="containerLegende">
+                        
+                        <div class="legendeitem" data-level="1">
+                            <div class="shape star"></div>
+                            <span>Groupe</span> 
+                        </div>
+                        <div class="legendeitem" data-level="2">
+                            <div class="shape hexagon"></div>
+                            <span>Division</span> 
+                        </div>
+                        <div class="legendeitem" data-level="3">
+                            <div class="shape rectangle"></div>
+                            <span>Entreprise</span> 
+                        </div>
+                        <div class="legendeitem" data-level="4"> 
+                            <div class="shape triangle"></div>
+                            <span>Tiers Etablissement</span> 
+                        </div>
+                        <div class="legendeitem" data-level="5"> 
+                            <div class="shape circle"></div>
+                            <span>Tiers secondaire</span> 
+                        </div>
+                    </div>
+                </div>
+
+                <div class="containerSearchLabel">rechercher
+
+                    <div class="ui disabled action input inputLabel">
+                        <input id="txtSearchLabel" type="text" placeholder="Recherche...">
+                        <button id="btnLabelAnnuler" class="ui icon button">
+                          <i class="close icon"></i>
+                        </button>
+                    </div>
+
+                    <!-- <div class="ui disabled input loading">
+                        <input id="txtSearchLabel" class="loading"  type="text" placeholder="Recherche...">
+                    </div> 
+                    <div  class="ui buttons">
+                        <button id="btnLabelAnnuler" class="ui button">Annuler</button>
+                        <button id="btnLabelValider" class="ui button ">Valider</button>
+                    </div> -->
+                </div>
+
+            {% endblock %}
+        </div>
+
+        <div id="footer" class="right {{ empty }}">
+            {%- block footer -%}
+            &copy; Copyright 2019 by STEF Region EST.
+            {%- endblock -%}
+        </div>
+
+    </body>
+</html>
+

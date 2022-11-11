@@ -1,0 +1,9 @@
+workers = 4
+timeout = 30
+keepalive = 2
+threads = 3
+bind = 'unix:gunicorn.sock'
+backlog = 2048
+accesslog = '../logs/gunicorn.log'
+errorlog = '../logs/gunicorn.error.log'
+capture_output = True

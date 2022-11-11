@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1" /> 
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">-->
+    {% block head %}
+
+    {% if DEV %}
+    <script src="{{ url_for('static', filename='jquery/js/jquery-3.5.0.js') }}"></script>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='Fomantic-UI-2.8.4-offline/dist/semantic.css') }}" />
+    <script src="{{ url_for('static', filename='Fomantic-UI-2.8.4-offline/dist/semantic.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/config-dev.js') }}?version={{VERSION_FILES}}"></script>
+
+    <script src="../static/js/d3-mitch-tree.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../static/css/d3-mitch-tree.min.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/d3-mitch-tree-theme-default.min.css">
+    <script src="../static/js/yui-min.js"></script>
+    <!-- <link rel="stylesheet" href="../static/css/tree.css"> -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
+    {% else %}
+    <script src="{{ url_for('static', filename='jquery/js/jquery-3.5.0.min.js') }}"></script>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='Fomantic-UI-2.8.4-offline/dist/semantic.min.css') }}" />
+    <script src="{{ url_for('static', filename='Fomantic-UI-2.8.4-offline/dist/semantic.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/config.js') }}?version={{VERSION_FILES}}"></script>
+    {% endif %}
+    <script src="{{ url_for('static', filename='js/app.js') }}?version={{VERSION_FILES}}"></script>
+
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/site.css') }}?version={{VERSION_FILES}}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/nodeStyle.css') }}?version={{VERSION_FILES}}" />
+
+    <title> :: APP ::</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='icon/favicon.ico') }}" />
+    <!--[if IE]><link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='icon/favicon.ico') }}" /><![endif]-->
+    {% endblock %}
+    </head>
+    <body>
+
+
+        <div id="overlay">
+        </div>
+        
+
+        <div id="content">
+            {% block content %}   
+                
+                   
+                <header>
+                    <img src="../static/images/logo.jpg" alt="" id="logo">
+                </header>
+                <div class="container">
+                    <!-- <div id="info"></div>   -->
+                    <section id="visualisation" >
+                    </section>
+                </div>
+                
+            {% endblock %}
+        </div>
+
+
+        <div id="footer" class="right {{ empty }}">
+            {%- block footer -%}
+            &copy; Copyright 2019 by STEF Region EST.
+            {%- endblock -%}
+        </div>
+        </div>
+
+
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script> -->
+
+
+
+        <script>
+            var data = appWEB.setData(JSON.parse('{{passData | tojson}}'))
+            appWEB.display(data)
+            // appWEB.YUI(false)
+
+            appWEB.nodeClick()
+
+        </script>
+
+
+
+    </body>
+</html>
+

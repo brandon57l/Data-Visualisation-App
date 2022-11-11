@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1" /> 
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">-->
+    {% block head %}
+
+    {% if DEV %}
+    
+    <script src="{{ url_for('static', filename='jquery/js/jquery-3.5.0.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='Fomantic-UI-2.8.4-offline/dist/semantic.css') }}" />
+    <script src="{{ url_for('static', filename='Fomantic-UI-2.8.4-offline/dist/semantic.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/config-dev.js') }}?version={{VERSION_FILES}}"></script>
+
+    <!-- <link rel="stylesheet" href="../static/css/tree.css"> -->
+    
+    
+    {% else %}
+    
+    <script src="{{ url_for('static', filename='jquery/js/jquery-3.5.0.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='Fomantic-UI-2.8.4-offline/dist/semantic.min.css') }}" />
+    <script src="{{ url_for('static', filename='Fomantic-UI-2.8.4-offline/dist/semantic.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/config.js') }}?version={{VERSION_FILES}}"></script>
+    {% endif %}
+    
+    <script src="../static/js/cytoscape/cytoscape.min.js"></script>
+    <script src="../static/js/cytoscape/cytoscape-cxtmenu.js"></script>
+    <script src="https://unpkg.com/layout-base/layout-base.js"></script>
+    <script src="https://unpkg.com/cose-base/cose-base.js"></script>
+    <script src="../static/js/cytoscape/cytoscape-cose-bilkent.js"></script>
+    
+    <script src="{{ url_for('static', filename='js/app3.js') }}?version={{VERSION_FILES}}"></script>
+
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styleRoute3.css') }}?version={{VERSION_FILES}}" />
+    
+    <title> :: APP ::</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='icon/favicon.ico') }}" />
+    <!--[if IE]><link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='icon/favicon.ico') }}" /><![endif]-->
+    {% endblock %}
+    </head>
+    <body>
+
+        <!-- <div class="overlay">
+        </div> -->
+
+
+        <div id="content">
+            {% block content %} 
+                <header>
+                    <img src="../static/images/logo.jpg" alt="" id="logo">
+                    <div class="ui input focus">
+                        <input value="220893" id="txtNtier"  type="text" placeholder="Ntier...">
+                      </div>
+                      <div class="ui input focus">
+                        <input value="3" id="txtNiveau" type="text" placeholder="Niveau...">
+                      </div>
+                    <div id="search" class="ui button"><i class="search icon searchIcon"></i></button>
+                </header>
+
+                <div onselectstart="return false" id="zoom">
+                    <i class="plus i">+</i>
+                    <i class="minus i">-</i>
+                </div>
+
+                <div class="iconPosition i">↺</div>
+                
+                <div id="cy">
+                </div>
+
+                <div class="containerLegende">
+                    <div class="legendeitem" data-level="1">
+                        <div class="shape star"></div>
+                        <span>Groupe</span> 
+                    </div>
+                    <div class="legendeitem" data-level="2">
+                        <div class="shape hexagon"></div>
+                        <span>Division</span> 
+                    </div>
+                    <div class="legendeitem" data-level="3">
+                        <div class="shape rectangle"></div>
+                        <span>Entreprise</span> 
+                    </div>
+                    <div class="legendeitem" data-level="4"> 
+                        <div class="shape triangle"></div>
+                        <span>Etablissement</span> 
+                    </div>
+                    <div class="legendeitem" data-level="5"> 
+                        <div class="shape circle"></div>
+                        <span>Tiers secondaire</span> 
+                    </div>
+                </div>
+
+            {% endblock %}
+        </div>
+
+        <div id="footer" class="right {{ empty }}">
+            {%- block footer -%}
+            &copy; Copyright 2019 by STEF Region EST.
+            {%- endblock -%}
+        </div>
+
+        </div>
+
+    </body>
+</html>
+
